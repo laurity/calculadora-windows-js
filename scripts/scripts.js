@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const equal = document.getElementById("equals");
+
+  //Muestra (incluyendo PI) cada boton numerico
   const numberInput = (e) => {
     let number = parseFloat(e.target.value);
     if (e.target.id === "pi") {
@@ -37,8 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     displayBottom.innerText = number;
   }
+  //Recorre cada input
   numbers.forEach(n => {
     n.addEventListener('click', numberInput);
   });
-
 })
