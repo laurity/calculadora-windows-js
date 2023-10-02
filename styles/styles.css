@@ -31,7 +31,7 @@
     grid-template-columns: 25% 25% 25% 25%;
     box-shadow: 0px;
 }
-button{
+input{
     background-color: gray;
     color: white;
     margin: 1px;
@@ -53,6 +53,6 @@ button{
     background-color: rgb(229, 87, 205);
     color: black;
 }
-button:hover{
+input:hover{
     opacity: 85%;
 }
