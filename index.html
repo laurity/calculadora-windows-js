@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link href="https://fonts.cdnfonts.com/css/ds-digital" rel="stylesheet">
+</head>
+<body>
+    <div class="contenedor">
+    <div class="calculator">
+        <div class="screen">
+        <div data-last>0</div> <!--25 characters-->
+        <div data-final>3</div> <!--14 characters-->
+        </div>
+        
+        <div class="buttons">
+            <button class="item percent sign row1" data-operation>%</button>
+            <button class="item pi row1" data-pi>π</button> 
+            <button class="item clear-all row1" data-clearAll>C</button> 
+            <button class="item clear row1" data-delete>⌫</button> 
+            <button class="item fraction row2" data-operation>⅟ₓ</button> 
+            <button class="item expose row2" data-operation>ₓ²</button> 
+            <button class="item square-root row2"data-operation>²√ₓ</button> 
+            <button class="item divide row2" data-operation>÷</button> 
+            <button class="item numbers row3" data-number>7</button> 
+            <button class="item numbers row3" data-number>8</button> 
+            <button class="item numbers row3" data-number>9</button> 
+            <button class="item sign row3" data-operation>✕</button> 
+            <button class="item numbers row4" data-number>4</button> 
+            <button class="item numbers row4" data-number>5</button> 
+            <button class="item numbers row4" data-number>6</button> 
+            <button class="item sign row4" data-operation>-</button> 
+            <button class="item numbers row5" data-number>1</button>   
+            <button class="item numbers row5" data-number>2</button> 
+            <button class="item numbers row5" data-number>3</button> 
+            <button class="item sign row5" data-operation>+</button> 
+            <button class="item negative row6" data-operation>±</button> 
+            <button class="item numbers zero row6" data-number>0</button> 
+            <button class="item comma row6" data-number>.</button> 
+            <button class="item equals row6" data-equals>=</button> 
+        </div>
+    </div>
+    <ul class="historial" id="data-operators">
+                HISTORIAL
+    </ul>
+</div>
+    <script src="./scripts/index.js"></script>
+</body>
+</html>
