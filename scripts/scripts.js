@@ -30,15 +30,24 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const equal = document.getElementById("equals");
+  const deleteAllButton = document.getElementById("clear");
+  const deleteOneButton = document.getElementById("backspace");
+
+  //Variables
+  let num1 = '';
+  let num2 = '';
+  let operator = '';
+  let result = 0;
 
   //Muestra (incluyendo PI) cada boton numerico
-  const numberInput = (e) => {
-    if (e.target.value === '.' && !displayBottom.innerText.includes(e.target.value)) {
-      displayBottom.innerText += e.target.value;
+  const numberInput = (event) => {
+    let number = parseFloat(event.target.value);
+    if (event.target.value === '.' && !displayBottom.innerText.includes(event.target.value)) {
+      displayBottom.innerText += event.target.value;
     }
-    let number = parseFloat(e.target.value);
-    if (e.target.id === "pi") {
+    if (event.target.id === "pi") {
       number = Math.PI.toFixed(5);
+      displayBottom.innerText = number;
     }
     if (number || number == 0) {
 
@@ -50,51 +59,126 @@ document.addEventListener("DOMContentLoaded", () => {
         else {
           displayBottom.innerText += number;
         }
-
       }
 
     }
   }
 
-  const percentage = (num1, num2) =>{
-    return (num1*100)/num2;
+  const operatorInput = (event) => {
+
+    switch (event.target.id) {
+      case 'percentage':
+        percentage();
+        break;
+
+      case 'fraction':
+        fraction();
+        break;
+
+      case 'square':
+        square();
+        break;
+
+      case 'square-root':
+        squareRoot();
+        break;
+
+      case 'toggle-sign':
+        toggleSign();
+        break;
+
+      case 'add':
+        add();
+        break;
+
+      case 'divide':
+        divide();
+        break;
+
+      case 'multiply':
+        multiply();
+        break;
+
+      case 'subtract':
+        subtract();
+        break;
+
+      default:
+        break;
+
+
+    }
   }
 
-  const fraction = (num1) =>{
-    return 1/num1;
+
+  //Borrar
+  const deleteAll = event => {
+    if (event.target.id === 'clear') {
+      num1 = 0;
+      num2 = 0;
+      operator = '';
+      result = 0;
+
+      displayBottom.innerText = num1;
+
+
+    }
+  }
+  /*OPERACIONES*/
+  const percentage = () => {
+    result = (num1 * 100) / num2;
+
   }
 
-  const square = (num1) =>{
-    return Math.pow(num1,2);
+  const fraction = () => {
+    return 1 / num1;
   }
 
-  const squareRoot = (num1) =>{
-    return Math.sqrt(num1);
+  const square = () => {
+    result = Math.pow(num1, 2);
+    displayBottom.innerText = result;
+    displayTop.innerText = '';
   }
 
-  const divide = (num1,num2) =>{
-    if (num2 === 0){
+  const squareRoot = () => {
+    result = Math.sqrt(num1);
+    displayBottom.innerText = result;
+    displayTop.innerText = '';
+  }
+
+  const divide = () => {
+    if (num2 === 0) {
       return 'ERROR';
     }
-    else{
-      return num1/num2;
+    else {
+      result = num1 / num2;
     }
+    displayBottom.innerText = result;
+    displayTop.innerText = '';
   }
 
-  const multiply = (num1,num2) =>{
-    return num1*num2;
+  const multiply = () => {
+    result = num1 * num2;
+    displayBottom.innerText = result;
+    displayTop.innerText = '';
   }
 
-  const subtract = (num1,num2) =>{
-    return num1-num2;
+  const subtract = () => {
+    result = num1 - num2;
+    displayBottom.innerText = result;
+    displayTop.innerText = '';
   }
 
-  const add = (num1,num2) =>{
-    return num1+num2;
+  const add = () => {
+    result = num1 + num2;
+    displayBottom.innerText = num1;
+    displayTop.innerText = num1 + operator;
+
+
   }
 
-  const toggleSign = (num1) =>{
-    return num1*-1;
+  const toggleSign = () => {
+    result = num1 * -1;
   }
 
 
@@ -102,4 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
   numbers.forEach(n => {
     n.addEventListener('click', numberInput);
   });
+
+  operators.forEach(o => {
+    o.addEventListener('click', operatorInput);
+  })
+
+  deleteAllButton.addEventListener('click', deleteAll);
+
 })
