@@ -1,8 +1,8 @@
 //Para que funcione, necesita que carge todo el archivo HTML y CSS
 document.addEventListener("DOMContentLoaded", () => {
 
-  const displayTop = document.getElementById('save-operation');
-  const displayBottom = document.getElementById('first-valor');
+  const displayTop = document.getElementById('save-values');
+  const displayBottom = document.getElementById('first-value');
   const numbers = [
     document.getElementById("num0"),
     document.getElementById("num1"),
@@ -49,12 +49,17 @@ document.addEventListener("DOMContentLoaded", () => {
       number = Math.PI.toFixed(5);
       displayBottom.innerText = number;
     }
-    if (number || number == 0) {
+    if (number || number === 0) {
 
-      if (displayBottom.innerHTML.length <= 5) {
+      if (displayBottom.innerText.length <= 5) {
+        const operator = operators.find(f => f.value === displayTop.innerText.slice(displayTop.innerText.length - 1));
+    
 
-        if (displayBottom.innerText === '0') {
+        if (displayBottom.innerText === '0' || operator) {
           displayBottom.innerText = number;
+          if(operator != undefined){
+            displayBottom.innerText += number;
+          }
         }
         else {
           displayBottom.innerText += number;
@@ -114,13 +119,8 @@ document.addEventListener("DOMContentLoaded", () => {
   //Borrar
   const deleteAll = event => {
     if (event.target.id === 'clear') {
-      num1 = 0;
-      num2 = 0;
-      operator = '';
-      result = 0;
-
-      displayBottom.innerText = num1;
-
+      displayBottom.innerText = 0;
+      displayTop.innerText = 0;
 
     }
   }
@@ -170,9 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const add = () => {
-    result = num1 + num2;
-    displayBottom.innerText = num1;
-    displayTop.innerText = num1 + operator;
+
+    displayTop.innerText = displayBottom.innerText + ' +';
 
 
   }
@@ -192,5 +191,5 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   deleteAllButton.addEventListener('click', deleteAll);
-
+  
 })
