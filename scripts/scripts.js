@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let num2 = '';
   let operator = '';
   let result = 0;
+  let operatorActive = false;
 
   //Muestra (incluyendo PI) cada boton numerico
   const numberInput = (event) => {
@@ -55,22 +56,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const operator = operators.find(f => f.value === displayTop.innerText.slice(displayTop.innerText.length - 1));
     
 
-        if (displayBottom.innerText === '0' || operator) {
+        if (displayBottom.innerText === '0' || (operator && operatorActive)) {
           displayBottom.innerText = number;
-          if(operator != undefined){
-            displayBottom.innerText += number;
-          }
-        }
-        else {
+          operatorActive = false;
+        } else {
           displayBottom.innerText += number;
         }
       }
 
     }
+    
+    operatorActive = false;
   }
 
   const operatorInput = (event) => {
-
     switch (event.target.id) {
       case 'percentage':
         percentage();
@@ -108,10 +107,25 @@ document.addEventListener("DOMContentLoaded", () => {
         subtract();
         break;
 
+      case 'equals':
+        equals();
+        break;
+
       default:
         break;
 
 
+    }
+  }
+
+  const equals = () => {
+    if (displayTop.innerText === '0') {
+      displayTop.innerText = displayBottom.innerText
+      displayBottom.innerText = 0
+    } else {
+      result = eval(displayTop.innerText + displayBottom.innerText)
+      displayBottom.innerText = result
+      displayTop.innerText = 0
     }
   }
 
@@ -147,31 +161,36 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const divide = () => {
-    if (num2 === 0) {
+    if (displayBottom === 0) {
       return 'ERROR';
     }
     else {
-      result = num1 / num2;
+      operatorActive = true;
+      displayTop.innerText = 
+          (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' /';
+      displayBottom.innerText = '0';
     }
-    displayBottom.innerText = result;
-    displayTop.innerText = '';
   }
 
   const multiply = () => {
-    result = num1 * num2;
-    displayBottom.innerText = result;
-    displayTop.innerText = '';
+    operatorActive = true;
+    displayTop.innerText = 
+        (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' *';
+    displayBottom.innerText = '0';
   }
 
   const subtract = () => {
-    result = num1 - num2;
-    displayBottom.innerText = result;
-    displayTop.innerText = '';
+    operatorActive = true;
+    displayTop.innerText = 
+        (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' -';
+    displayBottom.innerText = '0';
   }
 
   const add = () => {
-
-    displayTop.innerText = displayBottom.innerText + ' +';
+    operatorActive = true;
+    displayTop.innerText = 
+        (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' +';
+    displayBottom.innerText = '0';
 
 
   }
@@ -191,5 +210,6 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   deleteAllButton.addEventListener('click', deleteAll);
+  equal.addEventListener('click', equals)
   
 })
