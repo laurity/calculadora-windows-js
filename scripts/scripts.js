@@ -1,6 +1,15 @@
+/**
+ * 
+ * @author Laura López Alonso
+ * GitHub: https://github.com/laurity/calculadora-windows-js.git
+ * 
+ */
+
+
+
 //Para que funcione, necesita que carge todo el archivo HTML y CSS
 document.addEventListener("DOMContentLoaded", () => {
-
+  //Llamadas a los id de las etiquetas html
   const displayTop = document.getElementById('save-values');
   const displayBottom = document.getElementById('first-value');
   const numbers = [
@@ -33,38 +42,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const deleteAllButton = document.getElementById("clear");
   const deleteOneButton = document.getElementById("backspace");
 
-  //Variable
+  //Variable para activar/desactivar la funcion de un operador
   let operatorActive = false;
 
-  //Muestra (incluyendo PI) cada boton numerico
+  //Muestra los numeros (incluyendo PI y ,)
   const numberInput = (event) => {
     let number = parseFloat(event.target.value);
-    if (event.target.value === '.' && !displayBottom.innerText.includes(event.target.value)) {
+    if (event.target.value === '.' && !displayBottom.innerText.includes(event.target.value)) { //Evito que se incluya mas de una ,
       displayBottom.innerText += event.target.value;
     }
-    if (event.target.id === "pi") {
+    if (event.target.id === "pi") { //Añado PI
       number = Math.PI.toFixed(5);
       displayBottom.innerText = number;
     }
     if (number || number === 0) {
-
-      if (displayBottom.innerText.length <= 5) {
-        const operator = operators.find(f => f.value === displayTop.innerText.slice(displayTop.innerText.length - 1));
-
-
-        if (displayBottom.innerText === '0' || (operator && operatorActive)) {
+      if (displayBottom.innerText.length <= 5) { //Añado un tope de caracteres para poder incluir en la operación
+        const operator = operators.find(f => f.value === displayTop.innerText.slice(displayTop.innerText.length - 1)); //Busca el operador añadido si es igual al último caracter de DisplayTop
+        if (displayBottom.innerText === '0' || (operator && operatorActive)) { //Reemplaza el número
           displayBottom.innerText = number;
           operatorActive = false;
-        } else {
+        } else { //Lo añade
           displayBottom.innerText += number;
         }
       }
-
     }
-
-    operatorActive = false;
+    operatorActive = false; //Desactiva el operador
   }
-
+  //Guarda las funciones de los operadores
   const operatorInput = (event) => {
     switch (event.target.id) {
       case 'percentage':
@@ -107,18 +111,14 @@ document.addEventListener("DOMContentLoaded", () => {
         equals();
         break;
 
-      default:
-        break;
-
-
     }
   }
-
+  //Si le doy al equals, realiza la función
   const equals = () => {
-    if (displayTop.innerText === '0') {
+    if (displayTop.innerText === '0') { //Si displayTop igual que displayBottom, displayBottom devuelve 0
       displayTop.innerText = displayBottom.innerText;
       displayBottom.innerText = '0';
-    } else {
+    } else {  //Realiza las operaciones
       const result = eval(displayTop.innerText + displayBottom.innerText);
       displayBottom.innerText = result.toString();
       displayTop.innerText = '0';
