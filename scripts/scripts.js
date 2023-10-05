@@ -33,11 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const deleteAllButton = document.getElementById("clear");
   const deleteOneButton = document.getElementById("backspace");
 
-  //Variables
-  let num1 = '';
-  let num2 = '';
-  let operator = '';
-  let result = 0;
+  //Variable
   let operatorActive = false;
 
   //Muestra (incluyendo PI) cada boton numerico
@@ -54,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (displayBottom.innerText.length <= 5) {
         const operator = operators.find(f => f.value === displayTop.innerText.slice(displayTop.innerText.length - 1));
-    
+
 
         if (displayBottom.innerText === '0' || (operator && operatorActive)) {
           displayBottom.innerText = number;
@@ -65,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
     }
-    
+
     operatorActive = false;
   }
 
@@ -120,15 +116,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const equals = () => {
     if (displayTop.innerText === '0') {
-      displayTop.innerText = displayBottom.innerText
-      displayBottom.innerText = 0
+      displayTop.innerText = displayBottom.innerText;
+      displayBottom.innerText = '0';
     } else {
-      result = eval(displayTop.innerText + displayBottom.innerText)
-      displayBottom.innerText = result
-      displayTop.innerText = 0
+      const result = eval(displayTop.innerText + displayBottom.innerText);
+      displayBottom.innerText = result.toString();
+      displayTop.innerText = '0';
     }
   }
-
 
   //Borrar
   const deleteAll = event => {
@@ -140,64 +135,91 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   /*OPERACIONES*/
   const percentage = () => {
-    result = (num1 * 100) / num2;
+    let inputValue = parseFloat(displayBottom.innerText);
+    inputValue = inputValue / 100;
+    displayBottom.innerText = inputValue.toString();
 
   }
 
   const fraction = () => {
-    return 1 / num1;
+    operatorActive = true;
+    const inputValue = parseFloat(displayBottom.innerText);
+    if (inputValue !== 0) {
+      const result = 1 / inputValue;
+      displayTop.innerText = `1 / ${inputValue}`;
+      displayBottom.innerText = result.toString();
+    }
   }
 
   const square = () => {
-    result = Math.pow(num1, 2);
-    displayBottom.innerText = result;
-    displayTop.innerText = '';
+    operatorActive = true;
+    const inputValue = parseFloat(displayBottom.innerText);
+    if (inputValue !== 0) {
+      const result = Math.pow(inputValue, 2);
+      displayTop.innerText = `${inputValue} * ${inputValue}`;
+      displayBottom.innerText = result.toString();
+    }
+  }
+  const toggleSign = () => {
+    let inputValue = parseFloat(displayBottom.innerText);
+    inputValue = -inputValue;
+
+    if (displayTop.innerText === '0') {
+      displayTop.innerText = inputValue.toString();
+      displayBottom.innerText = '0';
+    } else {
+      const result = eval(displayTop.innerText + inputValue);
+      displayBottom.innerText = result.toString();
+      displayTop.innerText = '0';
+    }
   }
 
   const squareRoot = () => {
-    result = Math.sqrt(num1);
-    displayBottom.innerText = result;
-    displayTop.innerText = '';
+    const inputValue = parseFloat(displayBottom.innerText);
+    if (inputValue !== 0) {
+      const result = Math.sqrt(inputValue);
+      displayTop.innerText = `√${inputValue}`;
+      displayBottom.innerText = result.toString();
+    }
+
   }
 
   const divide = () => {
-    if (displayBottom === 0) {
+    if (displayBottom.innerText === 0) {
       return 'ERROR';
     }
     else {
       operatorActive = true;
-      displayTop.innerText = 
-          (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' /';
+      displayTop.innerText =
+        (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' /';
       displayBottom.innerText = '0';
     }
   }
 
   const multiply = () => {
     operatorActive = true;
-    displayTop.innerText = 
-        (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' *';
+    displayTop.innerText =
+      (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' *';
     displayBottom.innerText = '0';
   }
 
   const subtract = () => {
     operatorActive = true;
-    displayTop.innerText = 
-        (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' -';
+    displayTop.innerText =
+      (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' -';
     displayBottom.innerText = '0';
   }
 
   const add = () => {
     operatorActive = true;
-    displayTop.innerText = 
-        (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' +';
+    displayTop.innerText =
+      (displayTop.innerText !== '0' ? displayTop.innerText : displayBottom.innerText) + ' +';
     displayBottom.innerText = '0';
 
 
   }
 
-  const toggleSign = () => {
-    result = num1 * -1;
-  }
+
 
 
   //Recorre cada input
@@ -211,5 +233,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   deleteAllButton.addEventListener('click', deleteAll);
   equal.addEventListener('click', equals)
-  
+
 })
