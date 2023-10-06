@@ -8,7 +8,7 @@
 
 
 //Para que funcione, necesita que carge todo el archivo HTML y CSS
-document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
   //Llamadas a los id de las etiquetas html
   const displayTop = document.getElementById('save-values');
   const displayBottom = document.getElementById('first-value');
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  //Borrar
+  //Borrar Todo
   const deleteAll = event => {
     if (event.target.id === 'clear') {
       displayBottom.innerText = 0;
@@ -133,6 +133,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
   }
+  //Borrar solo un caracter
+  const deleteOne = event =>{
+    if (event.target.id === 'backspace'){
+      displayBottom.innerText = displayBottom.innerText.slice(0,-1);
+        if (displayBottom.innerText.length === 0){
+          displayBottom.innerText = 0;
+        }
+    }
+  }
+
   /*OPERACIONES*/
   const percentage = () => {
     let inputValue = parseFloat(displayBottom.innerText);
@@ -160,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
       displayBottom.innerText = result.toString();
     }
   }
+
   const toggleSign = () => {
     let inputValue = parseFloat(displayBottom.innerText);
     inputValue = -inputValue;
@@ -219,19 +230,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
-
-
-
-  //Recorre cada input
+  //Recorre cada número
   numbers.forEach(n => {
     n.addEventListener('click', numberInput);
   });
 
+  //Recorre cada operador
   operators.forEach(o => {
     o.addEventListener('click', operatorInput);
   })
 
-  deleteAllButton.addEventListener('click', deleteAll);
-  equal.addEventListener('click', equals)
+  deleteAllButton.addEventListener('click', deleteAll); //Recorre el boton de borrar todo
+  deleteOneButton.addEventListener('click', deleteOne);
+  equal.addEventListener('click', equals); //Recorre el igual
 
 })
