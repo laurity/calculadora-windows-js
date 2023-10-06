@@ -41,9 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const equal = document.getElementById("equals");
   const deleteAllButton = document.getElementById("clear");
   const deleteOneButton = document.getElementById("backspace");
+  const historialContent = document.getElementById('historial-calculator');
+  const deleteHistorial = document.getElementById("delete-historial");
 
   //Variable para activar/desactivar la funcion de un operador
   let operatorActive = false;
+  let saveHistorial;
 
   //Muestra los numeros (incluyendo PI y ,)
   const numberInput = (event) => {
@@ -52,16 +55,16 @@ document.addEventListener("DOMContentLoaded", () => {
       displayBottom.innerText += event.target.value;
     }
     if (event.target.id === "pi") { //Añado PI
-      number = Math.PI.toFixed(5);
+      number = Math.PI;
       displayBottom.innerText = number;
     }
     if (number || number === 0) {
-      if (displayBottom.innerText.length <= 5) { //Añado un tope de caracteres para poder incluir en la operación
+      if (displayBottom.innerText.length <= 15) { //Añado un tope de caracteres para poder incluir en la operación
         const operator = operators.find(f => f.value === displayTop.innerText.slice(displayTop.innerText.length - 1)); //Busca el operador añadido si es igual al último caracter de DisplayTop
         if (displayBottom.innerText === '0' || (operator && operatorActive)) { //Reemplaza el número
           displayBottom.innerText = number;
           operatorActive = false;
-        } 
+        }
         else { //Lo añade
           displayBottom.innerText += number;
         }
@@ -116,14 +119,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   //Si le doy al equals, realiza la función
   const equals = () => {
-    if (displayTop.innerText === '0') { //Si displayTop igual que displayBottom, displayBottom devuelve 0
+    if (displayTop.innerText === '0') { //Si displayTop es igual a 0, pasa a ser 0
       displayTop.innerText = displayBottom.innerText;
       displayBottom.innerText = '0';
-    } 
+    }
     else {  //Realiza las operaciones
       const result = eval(displayTop.innerText + displayBottom.innerText);
+      saveHistorial = displayTop.innerText + ' ' + displayBottom.innerText + ' = ' + result;
       displayBottom.innerText = result.toString();
       displayTop.innerText = '0';
+      createHistorial();
     }
   }
 
@@ -230,6 +235,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  //Creamos el historial
+  const createHistorial = () => {
+    const createSave = document.createElement("li");
+    createSave.classList.add("historial-calculator");
+    createSave.innerHTML = `
+      <span> ${saveHistorial}</span>
+    `;
+    historialContent.appendChild(createSave);
+  }
+  const deleteHistorialAll = () => {
+    historialContent.innerHTML = '';
+  };
+
+
   //Recorre cada número
   numbers.forEach(n => {
     n.addEventListener('click', numberInput);
@@ -243,5 +262,15 @@ document.addEventListener("DOMContentLoaded", () => {
   deleteAllButton.addEventListener('click', deleteAll); //Recorre el boton de borrar todo
   deleteOneButton.addEventListener('click', deleteOne); //Recorre el boton de borrar uno
   equal.addEventListener('click', equals); //Recorre el igual
+  deleteHistorial.addEventListener('click', deleteHistorialAll);
+
+  historialContent.addEventListener('click', () => {
+    const newHistorial = equal.value;
+    if (newHistorial !== "") {
+      createHistorial(newHistorial);
+      equal.value = '';
+    }
+  });
+
 
 });

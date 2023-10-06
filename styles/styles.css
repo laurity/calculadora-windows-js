@@ -1,7 +1,15 @@
+body{
+    min-width: 1167px;
+    max-height: 864px;
+}
+.contenedor{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
 .calculator{
     background-color: rgb(31, 31, 31);
     width: 555px;
-    height: 685px;
+    height: 700px;
     margin: 20px ;
     font-family: sans-serif;
 }
@@ -57,4 +65,44 @@ input{
 input:hover{
     opacity: 85%;
 }
- 
+
+.historial{
+    background-color: rgb(31, 31, 31);
+    width: 555px;
+    height: 700px;
+    margin: 20px ;
+    font-family: sans-serif;
+    color:white;
+}
+.historial-calculator{
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: 600;
+}
+ul{
+    margin: 0 auto;
+}
+.delete-historial{
+    color:white;
+}
+li{
+    color:white;
+    list-style: none;
+    
+}
+.delete-button{
+  background-color: yellowgreen;
+  margin-left: 40px;
+  
+}
+p{
+    text-align: left;
+    padding-left: 40px;
+    padding-top: 20px;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: 600;
+}
