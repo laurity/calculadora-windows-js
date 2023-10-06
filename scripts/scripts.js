@@ -5,13 +5,13 @@
  * 
  */
 
-
-
 //Para que funcione, necesita que carge todo el archivo HTML y CSS
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
+
   //Llamadas a los id de las etiquetas html
   const displayTop = document.getElementById('save-values');
   const displayBottom = document.getElementById('first-value');
+
   const numbers = [
     document.getElementById("num0"),
     document.getElementById("num1"),
@@ -61,7 +61,8 @@
         if (displayBottom.innerText === '0' || (operator && operatorActive)) { //Reemplaza el número
           displayBottom.innerText = number;
           operatorActive = false;
-        } else { //Lo añade
+        } 
+        else { //Lo añade
           displayBottom.innerText += number;
         }
       }
@@ -118,7 +119,8 @@
     if (displayTop.innerText === '0') { //Si displayTop igual que displayBottom, displayBottom devuelve 0
       displayTop.innerText = displayBottom.innerText;
       displayBottom.innerText = '0';
-    } else {  //Realiza las operaciones
+    } 
+    else {  //Realiza las operaciones
       const result = eval(displayTop.innerText + displayBottom.innerText);
       displayBottom.innerText = result.toString();
       displayTop.innerText = '0';
@@ -130,16 +132,15 @@
     if (event.target.id === 'clear') {
       displayBottom.innerText = 0;
       displayTop.innerText = 0;
-
     }
   }
   //Borrar solo un caracter
-  const deleteOne = event =>{
-    if (event.target.id === 'backspace'){
-      displayBottom.innerText = displayBottom.innerText.slice(0,-1);
-        if (displayBottom.innerText.length === 0){
-          displayBottom.innerText = 0;
-        }
+  const deleteOne = event => {
+    if (event.target.id === 'backspace') {
+      displayBottom.innerText = displayBottom.innerText.slice(0, -1);
+      if (displayBottom.innerText.length === 0) {
+        displayBottom.innerText = 0;
+      }
     }
   }
 
@@ -148,7 +149,6 @@
     let inputValue = parseFloat(displayBottom.innerText);
     inputValue = inputValue / 100;
     displayBottom.innerText = inputValue.toString();
-
   }
 
   const fraction = () => {
@@ -178,7 +178,8 @@
     if (displayTop.innerText === '0') {
       displayTop.innerText = inputValue.toString();
       displayBottom.innerText = '0';
-    } else {
+    }
+    else {
       const result = eval(displayTop.innerText + inputValue);
       displayBottom.innerText = result.toString();
       displayTop.innerText = '0';
@@ -192,7 +193,6 @@
       displayTop.innerText = `√${inputValue}`;
       displayBottom.innerText = result.toString();
     }
-
   }
 
   const divide = () => {
@@ -238,10 +238,10 @@
   //Recorre cada operador
   operators.forEach(o => {
     o.addEventListener('click', operatorInput);
-  })
+  });
 
   deleteAllButton.addEventListener('click', deleteAll); //Recorre el boton de borrar todo
-  deleteOneButton.addEventListener('click', deleteOne);
+  deleteOneButton.addEventListener('click', deleteOne); //Recorre el boton de borrar uno
   equal.addEventListener('click', equals); //Recorre el igual
 
-})
+});
