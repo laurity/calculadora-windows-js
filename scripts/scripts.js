@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
   equal.addEventListener('click', equals); //Recorre el igual
   deleteHistorial.addEventListener('click', deleteHistorialAll);
 
-  historialContent.addEventListener('click', () => {
+  historialContent.addEventListener('click', () => {  //Crea el historial
     const newHistorial = equal.value;
     if (newHistorial !== "") {
       createHistorial(newHistorial);
