@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     else {  //Realiza las operaciones
       const result = eval(displayTop.innerText + displayBottom.innerText);
-      saveHistorial = displayTop.innerText + ' ' + displayBottom.innerText + ' = ' + result;
+      saveHistorial = displayTop.innerText + ' ' + displayBottom.innerText + ' = ' + result; // Revisar esta línea
       displayBottom.innerText = result.toString();
       displayTop.innerText = '0';
       createHistorial();
@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputValue = parseFloat(displayBottom.innerText);
     if (inputValue !== 0) {
       const result = Math.sqrt(inputValue);
-      displayTop.innerText = `√${inputValue}`;
+      displayTop.innerText = `${inputValue}`; // Revisar (√)
       displayBottom.innerText = result.toString();
     }
   }
